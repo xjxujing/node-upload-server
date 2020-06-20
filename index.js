@@ -17,8 +17,23 @@ app.post("/upload", cors(), upload.single("file"), (req, res) => {
   res.send({ filename, originalname })
 })
 
-app.get("/preview/:key", (req, res) => {
-  res.sendFile()
+app.get("/preview/:key", cors(), (req, res) => {
+  // console.log(req.params.key)
+  res.sendFile(
+    `uploads/${req.params.key}`,
+    {
+      // eslint-disable-next-line no-undef
+      root: __dirname,
+      headers: {
+        "Content-Type": "image/*"
+      },
+    },
+    error => {
+      console.log(error)
+    })
 })
 
-app.listen(3000)
+// eslint-disable-next-line no-undef
+const port = process.env.PORT || 3000
+// console.log(port)
+app.listen(port)
