@@ -12,9 +12,9 @@ app.get("/", (req, res) => {
 
 app.post("/upload", cors(), upload.single("file"), (req, res) => {
 
-  console.log(req.file)
+  // console.log(req.file)
   const { filename, originalname } = req.file
-  res.send({ filename, originalname })
+  res.send({ filename, originalname, url: `/preview/${filename}` })
 })
 
 app.get("/preview/:key", cors(), (req, res) => {
